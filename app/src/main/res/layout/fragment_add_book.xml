@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.book.addbook.AddBookFragment">
+
+    <ImageView
+        android:id="@+id/image_left"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_left" />
+
+    <TextView
+        android:id="@+id/text_book"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        android:text="@string/add_book"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/image_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_left" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/text_book"
+        app:layout_constraintStart_toStartOf="@id/image_left"
+        app:layout_constraintTop_toBottomOf="@id/image_left">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_margin="1dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
+                    android:src="@drawable/ic_add_image" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/text_book_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_name"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardview" />
+
+            <EditText
+                android:id="@+id/edit_book_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-4dp"
+                android:ellipsize="end"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_book_name" />
+
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_description"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_name" />
+
+            <EditText
+                android:id="@+id/edit_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+            <TextView
+                android:id="@+id/text_book_quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_quantity"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@+id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_description" />
+
+            <EditText
+                android:id="@+id/edit_book_quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_book_quantity" />
+
+            <TextView
+                android:id="@+id/text_book_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/book_price"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toStartOf="@id/text_book_discountedprice"
+                app:layout_constraintStart_toStartOf="@id/text_book_quantity"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_quantity" />
+
+            <EditText
+                android:id="@+id/edit_book_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:hint="0.0"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toStartOf="@id/edit_book_discountedprice"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_book_price" />
+
+            <TextView
+                android:id="@+id/text_book_discountedprice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_discountedprice"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toEndOf="@id/text_book_price"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_quantity" />
+
+            <EditText
+                android:id="@+id/edit_book_discountedprice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="0.0"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toEndOf="@id/edit_book_price"
+                app:layout_constraintTop_toBottomOf="@id/text_book_price" />
+
+            <TextView
+                android:id="@+id/text_book_author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_author"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_price" />
+
+            <EditText
+                android:id="@+id/edit_book_author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="Chọn tác giả"
+                android:inputType="none"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_book_author" />
+
+            <TextView
+                android:id="@+id/text_book_supplier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_supplier"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_author" />
+
+            <EditText
+                android:id="@+id/edit_book_supplier"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="Chọn nhà xuất bản"
+                android:inputType="none"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_book_supplier" />
+
+            <TextView
+                android:id="@+id/text_book_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/book_category"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="@id/text_book_name"
+                app:layout_constraintStart_toStartOf="@id/text_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_supplier" />
+
+            <EditText
+                android:id="@+id/edit_book_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="Chọn thể loại"
+                android:inputType="none"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="@id/edit_book_name"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/text_book_category" />
+
+            <CheckBox
+                android:id="@+id/checkbox_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/edit_book_name"
+                app:layout_constraintTop_toBottomOf="@id/edit_book_category" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/banner_selected"
+                android:textColor="@color/primary"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/checkbox_banner"
+                app:layout_constraintStart_toEndOf="@id/checkbox_banner"
+                app:layout_constraintTop_toTopOf="@id/checkbox_banner" />
+
+            <TextView
+                android:id="@+id/text_add_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/bg_btn_signin"
+                android:paddingLeft="50dp"
+                android:paddingTop="21dp"
+                android:paddingRight="50dp"
+                android:paddingBottom="21dp"
+                android:text="@string/add_book"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_banner" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

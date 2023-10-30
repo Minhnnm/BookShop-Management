@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">BookShopManagement</string>
+
+    <string name="menu_home">Trang chủ</string>
+    <string name="book_management">Sản phẩm</string>
+    <string name="user_management">Khách hàng</string>
+    <string name="search_bar">Tìm kiếm</string>
+    <string name="add_book">Thêm sách</string>
+    <string name="update_book">Cập nhật sản phẩm</string>
+    <string name="update">Cập nhật</string>
+    <string name="add_author">Thêm tác giả</string>
+    <string name="add_category">Thêm thể loại</string>
+    <string name="add_supplier">Thêm nhà xuất bản</string>
+    <string name="enter_category_name">Nhập tên thể loại</string>
+    <string name="enter_supplier_name">Nhập tên nhà xuất bản</string>
+    <string name="enter_category_description">Nhập mô tả</string>
+    <string name="book_name">Tên sách</string>
+    <string name="book_description">Mô tả sách</string>
+    <string name="book_quantity">Số lượng sách</string>
+    <string name="book_price">Đơn giá</string>
+    <string name="book_discountedprice">Đơn giá khuyến mại</string>
+    <string name="book_author">Chọn tác giả</string>
+    <string name="book_supplier">Nhà xuất bản</string>
+    <string name="book_category">Chọn thể loại</string>
+    <string name="banner_selected">Chọn làm banner</string>
+    <string name="quantity_remaining">Còn lại</string>
+    <string name="revenue_year">Doanh thu năm</string>
+    <string name="revenue_overview">Tổng quan doanh thu năm</string>
+    <string name="revenue_month">Doanh thu hôm nay</string>
+    <string name="product">Sản Phẩm</string>
+    <string name="createdOn">Ngày đặt hàng :</string>
+    <string name="orderAddress">Địa chỉ giao hàng :</string>
+    <string name="orderQuantity">Tổng số lượng :</string>
+    <string name="textTotal">Tổng tiền:</string>
+    <string name="orderInfo">Thông tin đơn hàng</string>
+    <string name="textStatus">Tình tạng đơn hàng:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
