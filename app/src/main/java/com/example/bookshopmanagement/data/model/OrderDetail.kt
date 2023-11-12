@@ -15,6 +15,7 @@ data class OrderDetail(
     @SerializedName("receiver_phone") var receiverPhone: String?,
     @SerializedName("shipping_id") var shippingId: Int?,
     @SerializedName("shipping_type") var shippingType: String?,
+    @SerializedName("payment_method") var paymentMethod: String?,
     @SerializedName("shipping_cost") var shippingCost: String?,
     @SerializedName("order_total") var orderTotal: String?,
     @SerializedName("products") var products: List<OrderDetailProduct>,

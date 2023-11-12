@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bookshopmanagement.R
 import com.example.bookshopmanagement.data.model.request.CategoryRequest
 import com.example.bookshopmanagement.databinding.FragmentCategoryBinding
-import com.example.bookshopmanagement.databinding.LayoutAddBinding
+import com.example.bookshopmanagement.databinding.LayoutAddSupplierBinding
 import com.example.bookshopmanagement.ui.adapter.BaseAdapter
 import com.example.bookshopmanagement.ui.adapter.OnItemClickListener
 import com.example.bookshopmanagement.ui.main.book.addbook.AddBookFragment
@@ -47,7 +47,7 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        val bindingAlert = LayoutAddBinding.inflate(LayoutInflater.from(context))
+        val bindingAlert = LayoutAddSupplierBinding.inflate(LayoutInflater.from(context))
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
             .setView(bindingAlert.root)
         val dialog = builder.create()
@@ -62,6 +62,7 @@ class CategoryFragment : Fragment() {
             recyclerCategory.layoutManager = LinearLayoutManager(context)
             imageAddCategory.setOnClickListener {
                 bindingAlert.textAlert.text = resources.getString(R.string.add_category)
+                bindingAlert.editDescription.visibility=View.GONE
                 val categoryName = bindingAlert.editName.text
                 bindingAlert.textConfirm.setOnClickListener {
                     if (categoryName.isEmpty()) {

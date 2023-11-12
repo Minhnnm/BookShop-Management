@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookshopmanagement.data.model.Order
 import com.example.bookshopmanagement.data.model.Product
+import com.example.bookshopmanagement.data.model.response.User
 import com.example.bookshopmanagement.data.model.response.category.CategoryBestSeller
 import com.example.bookshopmanagement.data.repository.book.BookRepository
 import com.example.bookshopmanagement.data.repository.book.BookRepositoryImp
 import com.example.bookshopmanagement.data.repository.category.CategoryRepository
 import com.example.bookshopmanagement.data.repository.category.CategoryRepositoryImp
-import com.example.bookshopmanagement.data.repository.customer.CustomerRepository
-import com.example.bookshopmanagement.data.repository.customer.CutomerRepositoryImp
 import com.example.bookshopmanagement.data.repository.order.OrderRepository
 import com.example.bookshopmanagement.data.repository.order.OrderRepositoryImp
 import com.example.bookshopmanagement.datasource.remote.RemoteDataSource
@@ -21,20 +20,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
+    private var _totalOrder = MutableLiveData<Int>()
+    val totalOrder: LiveData<Int> get() = _totalOrder
     private var _revenueYear = MutableLiveData<Long>()
     val revenueYear: LiveData<Long> get() = _revenueYear
     private var _revenueMonth = MutableLiveData<List<Long>>()
     val revenueMonth: LiveData<List<Long>> get() = _revenueMonth
     private var _revenueToday = MutableLiveData<Long>()
     val revenueToday: LiveData<Long> get() = _revenueToday
-    private var _customerNumber = MutableLiveData<Int>()
-    val customerNumber: LiveData<Int> get() = _customerNumber
     private var _books = MutableLiveData<List<Product>>()
     val books: LiveData<List<Product>> get() = _books
     private var _category = MutableLiveData<List<CategoryBestSeller>>()
     val categoryBestSeller: LiveData<List<CategoryBestSeller>> get() = _category
     private val orderRepo: OrderRepository = OrderRepositoryImp(RemoteDataSource())
-    private val customerRepo: CustomerRepository = CutomerRepositoryImp(RemoteDataSource())
     private val bookRepo: BookRepository = BookRepositoryImp(RemoteDataSource())
     private val categoryRepo: CategoryRepository = CategoryRepositoryImp(RemoteDataSource())
 
@@ -51,6 +49,7 @@ class HomeViewModel : ViewModel() {
                         }
                     }
                     _revenueYear.postValue(sum)
+                    _totalOrder.postValue(it.size)
                 }
             } else {
                 Log.d("GerOrderByYear", "NULL")
@@ -120,19 +119,6 @@ class HomeViewModel : ViewModel() {
                 _category.postValue(response.body())
             } else {
                 Log.d("GetCategoryBestSeller", "NULL")
-            }
-        }
-    }
-
-    fun getCustomerNumber() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = customerRepo.getCustomerNumber()
-            if (response.isSuccessful) {
-                _customerNumber.postValue(
-                    response.body()?.message.toString().split(":")[1].trim().toInt()
-                )
-            } else {
-                Log.d("GetCustomerNumber", "NULL")
             }
         }
     }

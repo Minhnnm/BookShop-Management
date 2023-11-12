@@ -12,7 +12,6 @@ import com.example.bookshopmanagement.ui.adapter.ViewPager2Adapter
 import com.example.bookshopmanagement.ui.main.book.BookFragment
 import com.example.bookshopmanagement.ui.main.home.HomeFragment
 import com.example.bookshopmanagement.ui.main.user.UserFragment
-import com.google.android.material.tabs.TabLayoutMediator
 
 class MainMenuFragment : Fragment() {
 
@@ -30,7 +29,8 @@ class MainMenuFragment : Fragment() {
         val fragments = listOf(
             HomeFragment(),
             BookFragment(),
-            FragmentTabLayout(),
+            OrderFragmentTabLayout(),
+            UserFragment(),
         )
         val adapter = ViewPager2Adapter(requireActivity(), fragments)
         binding.viewPager.adapter = adapter
@@ -41,7 +41,8 @@ class MainMenuFragment : Fragment() {
                 when (position) {
                     0 -> binding.navigation.menu.findItem(R.id.menu_home).isChecked = true
                     1 -> binding.navigation.menu.findItem(R.id.menu_book).isChecked = true
-                    2 -> binding.navigation.menu.findItem(R.id.menu_user).isChecked = true
+                    2 -> binding.navigation.menu.findItem(R.id.menu_order).isChecked = true
+                    3 -> binding.navigation.menu.findItem(R.id.menu_user).isChecked = true
                 }
             }
         })
@@ -50,7 +51,8 @@ class MainMenuFragment : Fragment() {
                 when (item.itemId) {
                     R.id.menu_home -> viewPager.currentItem = 0
                     R.id.menu_book -> viewPager.currentItem = 1
-                    R.id.menu_user -> viewPager.currentItem = 2
+                    R.id.menu_order -> viewPager.currentItem = 2
+                    R.id.menu_user -> viewPager.currentItem = 3
                 }
                 false
             }

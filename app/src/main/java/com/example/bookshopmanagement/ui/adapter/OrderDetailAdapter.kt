@@ -28,6 +28,7 @@ class OrderDetailAdapter :
         orderDetailProductList = orderDetailProducts as MutableList<OrderDetailProduct>
         notifyDataSetChanged()
     }
+
     override fun onBindViewHolder(holder: OrderDetailAdapter.ViewHolder, position: Int) {
         val orderDetailProductList = orderDetailProductList[position]
         holder.bind(orderDetailProductList)
@@ -46,6 +47,7 @@ class OrderDetailAdapter :
             binding.textPrice.text =
                 orderDetailProduct.subtotal?.let { formatMoney.formatMoney(it.toDouble().toLong()) }
             binding.textName.text = orderDetailProduct.productName
+            binding.textDescription.text = orderDetailProduct.productDescription
             binding.textNumber.text = "x" + orderDetailProduct.quantity.toString()
         }
     }

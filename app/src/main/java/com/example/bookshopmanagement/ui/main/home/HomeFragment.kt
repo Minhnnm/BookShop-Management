@@ -16,13 +16,17 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.annotation.RequiresApi
+import androidx.core.view.get
 import com.example.BookShopApp.utils.format.FormatDate
 import com.example.BookShopApp.utils.format.FormatMoney
 import com.example.bookshopmanagement.R
 import com.example.bookshopmanagement.data.model.Product
 import com.example.bookshopmanagement.data.model.response.category.CategoryBestSeller
 import com.example.bookshopmanagement.databinding.FragmentHomeBinding
+import com.example.bookshopmanagement.ui.main.user.UserViewModel
+import com.example.bookshopmanagement.ui.signin.SignInFragment
 import com.example.bookshopmanagement.utils.LoadingProgressBar
+import com.example.bookshopmanagement.utils.MySharedPreferences
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
@@ -45,10 +49,8 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModelUser: UserViewModel
     private var binding: FragmentHomeBinding? = null
-    private var customerNumber = 0
-    private var revenueYear = 0L
-    private var revenueMonth = 0L
     private var formatDate = FormatDate()
     private var formatMoney = FormatMoney()
     private var currentDate = ""
@@ -58,6 +60,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        viewModelUser=ViewModelProvider(this)[UserViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -78,7 +81,7 @@ class HomeFragment : Fragment() {
         currentYear = currentDate.split("/")[2].toInt()
         loadingProgressBar = LoadingProgressBar(requireContext())
         loadingProgressBar.show()
-        viewModel.getCustomerNumber()
+        viewModelUser.getAllCustomer()
         viewModel.getRevenueYear(currentYear)
         viewModel.getOrderByToday(currentDate)
         viewModel.getRevenueMonthOfYear(currentYear)
@@ -91,6 +94,10 @@ class HomeFragment : Fragment() {
             imageChangeYear.setOnClickListener { view ->
                 showPopupMenu(view)
             }
+            imageAccount.setOnClickListener { view ->
+                showPopupAccount(view)
+
+            }
         }
     }
 
@@ -100,13 +107,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModel.customerNumber.observe(viewLifecycleOwner) {
-            customerNumber = it
-            binding?.textNumberUser?.text = customerNumber.toString()
+        viewModel.totalOrder.observe(viewLifecycleOwner) {
+            binding?.textNumberOrders?.text = it.toString()
+        }
+        viewModelUser.customers.observe(viewLifecycleOwner) {
+            binding?.textNumberUser?.text = it.size.toString()
         }
         viewModel.revenueYear.observe(viewLifecycleOwner) {
-            revenueYear = it
-            binding?.textAllRevenue?.text = formatMoney.formatMoney(revenueYear)
+            binding?.textAllRevenue?.text = formatMoney.formatMoney(it)
         }
         viewModel.revenueMonth.observe(viewLifecycleOwner) {
             lineChart(it)
@@ -115,7 +123,7 @@ class HomeFragment : Fragment() {
         viewModel.books.observe(viewLifecycleOwner) {
             barChart(it)
         }
-        viewModel.categoryBestSeller.observe(viewLifecycleOwner){
+        viewModel.categoryBestSeller.observe(viewLifecycleOwner) {
             pieChart(it)
         }
         viewModel.revenueToday.observe(viewLifecycleOwner) {
@@ -176,7 +184,7 @@ class HomeFragment : Fragment() {
         lineChart?.invalidate()
     }
 
-    private fun pieChart(category:List<CategoryBestSeller>) {
+    private fun pieChart(category: List<CategoryBestSeller>) {
         val pieChart: PieChart? = binding?.pieChart
         val entries = ArrayList<PieEntry>()
         entries.add(PieEntry(category[0].totalSold.toFloat(), category[0].category.name))
@@ -221,7 +229,7 @@ class HomeFragment : Fragment() {
             Color.GREEN,
             Color.RED,
             Color.CYAN,
-        )// Màu sắc của cột
+        )
 
         val xAxis = barChart?.xAxis
 //        xAxis?.valueFormatter = IndexAxisValueFormatter(bookNames)
@@ -251,7 +259,6 @@ class HomeFragment : Fragment() {
 
         val rightYAxis: YAxis? = barChart?.axisRight
         rightYAxis?.isEnabled = false
-        // Tùy chỉnh biểu đồ (nếu cần)
         barChart?.description?.isEnabled = false
         barChart?.setDrawValueAboveBar(true)
         barChart?.setScaleEnabled(false)
@@ -271,6 +278,43 @@ class HomeFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun showPopupAccount(view: View) {
+        binding?.apply {
+            val popupMenu = PopupMenu(requireContext(), view)
+            val inflater = popupMenu.menuInflater
+            inflater.inflate(R.menu.menu_account, popupMenu.menu)
+
+            val title = popupMenu.menu[0].title.toString()
+            val spannable = SpannableString(title)
+            spannable.setSpan(
+                LeadingMarginSpan.Standard(dpToPx(view, 60), 0),
+                0,
+                spannable.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannable.setSpan(
+                ForegroundColorSpan(
+                    resources.getColor(R.color.black)
+                ), 0, spannable.length, 0
+            )
+            popupMenu.menu[0].title = spannable
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.item_logout -> {
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.container, SignInFragment()).commit()
+                        MySharedPreferences.clearPreferences()
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -330,7 +374,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getCustomerNumber()
+        viewModelUser.getAllCustomer()
         viewModel.getRevenueYear(currentYear)
         viewModel.getOrderByToday(currentDate)
         viewModel.getRevenueMonthOfYear(currentYear)

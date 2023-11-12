@@ -13,7 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.BookShopApp.utils.format.FormatDate
 import com.example.BookShopApp.utils.format.FormatMoney
+import com.example.bookshopmanagement.R
 import com.example.bookshopmanagement.data.model.OrderDetail
+import com.example.bookshopmanagement.data.model.response.OrderDetailProduct
 import com.example.bookshopmanagement.databinding.FragmentOrderDetailBinding
 import com.example.bookshopmanagement.ui.adapter.OrderDetailAdapter
 
@@ -67,18 +69,30 @@ class OrderDetailFragment : Fragment() {
     fun bindData(it: OrderDetail, orderStatus: String) {
         binding?.apply {
             textIdOrder.text = "#Order" + it.orderId
+
             textOrderDate.text =
                 textOrderDate.text.toString() + " " + formatDate.formatDate(it.createdOn)
+            textReceiverName.text =
+                resources.getString(R.string.receiverName) + " " + it.receiverName
+            textReceiverPhone.text =
+                resources.getString(R.string.receiverPhone) + " " + it.receiverPhone
             textOrderAddress.text =
                 textOrderAddress.text.toString() + " " + it.address
+            var totalProduct = 0
+            for (product: OrderDetailProduct in it.products) {
+                product.quantity?.let { totalProduct += it }
+
+            }
             textOrderSum.text =
-                textOrderSum.text.toString() + " " + it.products.size
+                textOrderSum.text.toString() + " " + totalProduct
             textOrderStatus.text = " $orderStatus"
             textTotalMoney.text = " " + it.orderTotal?.let { orderTotal ->
                 formatMoney.formatMoney(
                     orderTotal.toDouble().toLong()
                 )
             }
+            val paymentMethod=it.paymentMethod?.substring(16)?.capitalize()
+            textPaymentMethod.text=textPaymentMethod.text.toString()+" "+paymentMethod
             textShippingType.text = textShippingType.text.toString() + " " + it.shippingType
 //            loadingLayout.root.visibility = View.INVISIBLE
         }

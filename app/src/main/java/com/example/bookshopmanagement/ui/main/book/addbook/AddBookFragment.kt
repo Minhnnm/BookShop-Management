@@ -135,17 +135,14 @@ class AddBookFragment() : Fragment() {
         viewModel.author.observe(viewLifecycleOwner) {
             binding?.editBookAuthor?.setText(it?.authorName)
             author = it
-            Log.d("Author12", author.toString())
         }
         viewModel.category.observe(viewLifecycleOwner) {
             binding?.editBookCategory?.setText(it?.name)
             category = it
-            Log.d("Category12", category.toString())
         }
         viewModel.publisher.observe(viewLifecycleOwner) {
             binding?.editBookSupplier?.setText(it?.name)
             supplier = it
-            Log.d("Supplier12", supplier.toString())
         }
         viewModel.message.observe(viewLifecycleOwner) {
             it?.let {

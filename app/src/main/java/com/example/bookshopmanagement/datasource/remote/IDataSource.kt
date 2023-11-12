@@ -15,7 +15,11 @@ import com.example.bookshopmanagement.data.model.response.product.ProductRespons
 import retrofit2.Response
 
 interface IDataSource {
-    suspend fun getCustomerNumber(): Response<Message>
+
+    suspend fun login(email: String, password: String): Response<AuthResponse>
+    suspend fun getAllCustomer(): Response<List<User>>
+
+    suspend fun updateUserStatus(idUser: Int, status: String): Response<Message>
     suspend fun getProducts(limit: Int, page: Int, description: Int): Response<ProductResponse>
     suspend fun getSearchProducts(
         limit: Int,

@@ -5,22 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2
-import com.example.bookshopmanagement.R
-import com.example.bookshopmanagement.databinding.FragmentMainMenuBinding
 import com.example.bookshopmanagement.databinding.FragmentTabLayoutBinding
 import com.example.bookshopmanagement.ui.adapter.ViewPager2Adapter
-import com.example.bookshopmanagement.ui.main.book.BookFragment
-import com.example.bookshopmanagement.ui.main.home.HomeFragment
 import com.example.bookshopmanagement.ui.main.order.deliverdorder.DeliveredOrderFragment
 import com.example.bookshopmanagement.ui.main.order.prepareorder.OrderPrepareFragment
 import com.example.bookshopmanagement.ui.main.order.shippingorder.ShippingOrderFragment
-import com.example.bookshopmanagement.ui.main.user.UserFragment
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 
-class FragmentTabLayout : Fragment() {
+class OrderFragmentTabLayout : Fragment() {
     private lateinit var binding: FragmentTabLayoutBinding
     override fun onCreateView(
         inflater: LayoutInflater,

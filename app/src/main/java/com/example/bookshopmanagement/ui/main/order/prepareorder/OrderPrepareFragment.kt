@@ -86,7 +86,6 @@ class OrderPrepareFragment : Fragment() {
             if (it != null) {
                 mapOrder.clear()
                 for (order in it) {
-                    Log.d("TIMEE ", order.shippedOn.toString())
                     val date: String = if (order.shippedOn == null) {
                         formatDate.formatDate(order.createdOn)
                     } else {

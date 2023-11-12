@@ -6,90 +6,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.user.UserFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_order"
+    <TextView
+        android:id="@+id/text_user"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Danh sách khách hàng"
+        android:textColor="@color/gray"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/linear_order_infor"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginLeft="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.9"
-                    android:textSize="17dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/user_management"
-                    android:textColor="@color/black" />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.02"
-                    android:layout_marginRight="8dp"
-                    app:srcCompat="@drawable/ic_right" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/linear_my_order"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginLeft="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.9"
-                    android:textSize="17dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/book_management"
-                    android:textColor="@color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.02"
-                    android:layout_marginRight="8dp"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_right" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/linear_feedback"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="1dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.97"
-                    android:textSize="17dp"
-                    android:gravity="center_vertical"
-                    android:text="Send Feedback"
-                    android:textColor="@color/black" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_user"
+        app:layout_constraintTop_toBottomOf="@id/text_user" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.02"
-                    android:layout_marginRight="8dp"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/ic_right" />
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <!--    <include-->
+    <!--        android:id="@+id/loadingLayout"-->
+    <!--        layout="@layout/layout_loading"-->
+    <!--        android:visibility="gone" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

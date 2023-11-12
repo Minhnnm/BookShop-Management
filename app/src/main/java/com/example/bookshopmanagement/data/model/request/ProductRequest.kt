@@ -1,6 +1,7 @@
 package com.example.bookshopmanagement.data.model.request
 
 import android.text.TextUtils
+import android.util.Log
 import com.example.BookShopApp.data.model.Category
 import com.example.BookShopApp.data.model.Supplier
 import com.example.bookshopmanagement.data.model.Author
@@ -35,6 +36,6 @@ data class ProductRequest(
     }
 
     fun isPriceThanDiscountedPrice(): Boolean {
-        return price.toInt() > discounted_price.toInt()
+        return price.toDouble().toInt() > discounted_price.toDouble().toInt()
     }
 }

@@ -16,8 +16,23 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiInterface {
+
+    @FormUrlEncoded
+    @POST("customers/login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String,
+    ): Response<AuthResponse>
+
     @GET("/customers/all")
-    suspend fun getCustomerNumber(): Response<Message>
+    suspend fun getAllCustomer(): Response<List<User>>
+
+    @FormUrlEncoded
+    @PUT("/customers/update/status")
+    suspend fun updateUserStatus(
+        @Field("idUser") idUser: Int,
+        @Field("status") status: String
+    ): Response<Message>
 
     @GET("/products")
     suspend fun getProducts(

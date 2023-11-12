@@ -87,6 +87,32 @@
         android:text="@string/createdOn"
         android:textColor="@color/primary"
         android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_receiver_name"
+        app:layout_constraintEnd_toEndOf="@+id/text_id_order"
+        app:layout_constraintStart_toStartOf="@+id/text_detail" />
+
+    <TextView
+        android:id="@+id/text_receiver_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/receiverName"
+        android:textColor="@color/primary"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_receiver_phone"
+        app:layout_constraintEnd_toEndOf="@+id/text_id_order"
+        app:layout_constraintStart_toStartOf="@+id/text_detail" />
+
+    <TextView
+        android:id="@+id/text_receiver_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/receiverPhone"
+        android:textColor="@color/primary"
+        android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@+id/text_order_address"
         app:layout_constraintEnd_toEndOf="@+id/text_id_order"
         app:layout_constraintStart_toStartOf="@+id/text_detail" />
@@ -98,9 +124,9 @@
         android:text="@string/orderAddress"
         android:textColor="@color/primary"
         android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_order_sum"
-        app:layout_constraintEnd_toEndOf="@+id/text_order_date"
-        app:layout_constraintStart_toStartOf="@+id/text_order_date" />
+        app:layout_constraintBottom_toTopOf="@id/text_order_sum"
+        app:layout_constraintEnd_toEndOf="@id/text_order_date"
+        app:layout_constraintStart_toStartOf="@id/text_order_date" />
 
     <TextView
         android:id="@+id/text_order_sum"
@@ -109,9 +135,20 @@
         android:text="@string/orderQuantity"
         android:textColor="@color/primary"
         android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@id/text_shipping_type"
+        app:layout_constraintBottom_toTopOf="@id/text_payment_method"
         app:layout_constraintEnd_toEndOf="@+id/text_order_date"
         app:layout_constraintStart_toStartOf="@+id/text_order_address" />
+
+    <TextView
+        android:id="@+id/text_payment_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Phương thức thanh toán: "
+        android:textColor="@color/primary"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@id/text_shipping_type"
+        app:layout_constraintEnd_toEndOf="@+id/text_order_date"
+        app:layout_constraintStart_toStartOf="@+id/text_order_sum" />
 
     <TextView
         android:id="@+id/text_shipping_type"
@@ -128,6 +165,7 @@
         android:id="@+id/text_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
         android:text="@string/textStatus"
         android:textColor="@color/primary"
         android:textSize="14dp"
@@ -138,6 +176,7 @@
         android:id="@+id/text_order_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
         android:textColor="@color/status"
         android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@id/text_total"
@@ -148,8 +187,7 @@
         android:id="@+id/text_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="11dp"
         android:text="@string/textTotal"
         android:textColor="@color/black"
         android:textSize="18dp"
@@ -161,8 +199,7 @@
         android:id="@+id/text_total_money"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="11dp"
         android:text="0VND"
         android:textColor="@color/red"
         android:textSize="18dp"

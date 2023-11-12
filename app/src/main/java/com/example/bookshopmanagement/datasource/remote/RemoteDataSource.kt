@@ -16,8 +16,17 @@ import com.example.bookshopmanagement.data.model.response.product.ProductRespons
 import retrofit2.Response
 
 class RemoteDataSource() : IDataSource {
-    override suspend fun getCustomerNumber(): Response<Message> {
-        return RetrofitClient.apiService.getCustomerNumber()
+
+    override suspend fun login(email: String, password: String): Response<AuthResponse> {
+        return RetrofitClient.apiService.login(email, password)
+    }
+
+    override suspend fun getAllCustomer(): Response<List<User>> {
+        return RetrofitClient.apiService.getAllCustomer()
+    }
+
+    override suspend fun updateUserStatus(idUser: Int, status: String): Response<Message> {
+        return RetrofitClient.apiService.updateUserStatus(idUser, status)
     }
 
     override suspend fun getProducts(

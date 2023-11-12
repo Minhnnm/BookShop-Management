@@ -19,5 +19,6 @@
     <color name="primary">#667080</color>
     <color name="status">#2676F6</color>
     <color name="colorProduct">#101010</color>
+    <color name="colorBorder">#E8ECF4</color>
 
 </resources>
