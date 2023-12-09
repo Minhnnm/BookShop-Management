@@ -20,5 +20,6 @@
     <color name="status">#2676F6</color>
     <color name="colorProduct">#101010</color>
     <color name="colorBorder">#E8ECF4</color>
-
+    <color name="product_name">#201A25</color>
+    <color name="secondaryDeep">#C3C6C9</color>
 </resources>

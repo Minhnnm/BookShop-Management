@@ -38,6 +38,7 @@ class BookFragment : Fragment() {
     private var totalPosition = 0
     private var currentPosition = 0
     private var pastPage = -1
+    private var loadData: Boolean = true
     private val searchHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,9 +81,16 @@ class BookFragment : Fragment() {
                     .replace(R.id.container, AddBookFragment().apply { arguments = bundle })
                     .addToBackStack("BookFragment").commit()
             }
+            swipeRefresh.setOnRefreshListener {
+                Handler().postDelayed({
+                    swipeRefresh.isRefreshing = false
+                    loadData = false
+                    viewModel.getProducts(10, 1, 5)
+                }, 1000)
+            }
+            swipeRefresh.setColorSchemeColors(resources.getColor(R.color.teal_200))
         }
         handleLoadData()
-        refreshData()
         navToEdittingScreen()
         alertDeleteBook()
     }
@@ -94,14 +102,14 @@ class BookFragment : Fragment() {
                 if (it.isEmpty()) {
                     currentPage = 1
                 } else {
-                    if (pastPage != currentPage && isDefaultState) {
-                        if (currentPage > 1) {
+                    if (isDefaultState) {
+                        if (currentPage > 1 && loadData) {
                             bookList.addAll(it)
                         } else {
                             bookList.clear()
                             bookList.addAll(it)
                         }
-                    } else if (!isDefaultState) {
+                    } else {
                         bookList.clear()
                         bookList.addAll(it)
                     }
@@ -109,30 +117,18 @@ class BookFragment : Fragment() {
                 adapter.setData(bookList)
 //                navToProductDetail()
 //                addItemToCart()
-//                binding?.loadingLayout?.root?.visibility = View.INVISIBLE
+                binding?.loadingLayout?.root?.visibility = View.INVISIBLE
             }
         }
     }
 
-    private fun refreshData() {
-        binding?.apply {
-            swipeRefresh.setOnRefreshListener {
-                Handler().postDelayed(
-                    {
-                        viewModel.getProducts(10, 1, 5)
-                        swipeRefresh.isRefreshing = false
-                    }, 1000
-                )
-            }
-            swipeRefresh.setColorSchemeColors(resources.getColor(R.color.teal_200))
-        }
-    }
 
     private fun handleLoadData() {
         binding?.apply {
             recyclerBook.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
+                    loadData = true
                     lastPosition =
                         (recyclerBook.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
                     totalPosition = adapter.itemCount
@@ -157,8 +153,9 @@ class BookFragment : Fragment() {
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (newText.isEmpty()) {
 //                        currentPage = 1
+                        loadData = false
                         viewModel.getProducts(10, 1, 5)
-//                        loadingLayout.root.visibility = View.VISIBLE
+                        loadingLayout.root.visibility = View.VISIBLE
                     } else {
                         val delayMillis = 300L
                         searchHandler.removeCallbacksAndMessages(null)
@@ -187,7 +184,8 @@ class BookFragment : Fragment() {
 
         })
     }
-    private fun alertDeleteBook(){
+
+    private fun alertDeleteBook() {
         adapter.setOnItemLongClickListener(object : OnItemLongClickListener {
             override fun onItemLongClick(position: Int) {
                 val book = adapter.getBook(position)
@@ -195,11 +193,11 @@ class BookFragment : Fragment() {
                     .setTitle("Thông báo!")
                     .setIcon(R.drawable.ic_delete)
                     .setMessage("Bạn có chắc chắn muốn xóa sản phẩm '${book.name}' không?")
-                    .setPositiveButton("OK"){ dialog, _ ->
+                    .setPositiveButton("OK") { dialog, _ ->
                         viewModel.deleteBook(book.product_id)
                         dialog.cancel()
                     }
-                    .setNegativeButton("Cancel"){ dialog, _ ->
+                    .setNegativeButton("Cancel") { dialog, _ ->
                         dialog.cancel()
                     }
                     .show()

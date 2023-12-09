@@ -1,4 +1,4 @@
-package com.example.bookshopmanagement.ui.main.order.deliverdorder
+package com.example.bookshopmanagement.ui.main.order.deliveredorder
 
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider

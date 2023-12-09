@@ -11,6 +11,17 @@ class UserRepositoryImp(private val iDataSource: IDataSource) : UserRepository {
         return iDataSource.login(email, password)
     }
 
+    override suspend fun getUser(): Response<User>? {
+        return iDataSource.getUser()
+    }
+    override suspend fun changePassword(
+        email: String,
+        old_password: String,
+        new_password: String
+    ): Response<User>? {
+        return iDataSource.changePassword(email, old_password, new_password)
+    }
+
     override suspend fun getAllCustomer(): Response<List<User>> {
         return iDataSource.getAllCustomer()
     }

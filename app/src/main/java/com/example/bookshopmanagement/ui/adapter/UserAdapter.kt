@@ -2,8 +2,10 @@ package com.example.bookshopmanagement.ui.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.bookshopmanagement.R
@@ -55,7 +57,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
                 }
                 textUserName.text = user.name
                 textEmail.text = user.email
-                textPhone.text = user.mobPhone
+                var mobPhone ="null"
+                if(user.mobPhone != "")
+                    mobPhone=user.mobPhone
+                textPhone.text = mobPhone
                 if (user.status.equals("active")) {
                     textStatus.text = root.resources.getString(R.string.active)
                     textStatus.setTextColor(root.resources.getColor(R.color.teal_200))

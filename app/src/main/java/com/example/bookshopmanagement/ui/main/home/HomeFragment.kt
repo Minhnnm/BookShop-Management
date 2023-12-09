@@ -1,6 +1,7 @@
 package com.example.bookshopmanagement.ui.main.home
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
@@ -16,13 +17,16 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.get
+import com.example.BookShopApp.ui.profile.changepass.ChangePassFragment
 import com.example.BookShopApp.utils.format.FormatDate
 import com.example.BookShopApp.utils.format.FormatMoney
 import com.example.bookshopmanagement.R
 import com.example.bookshopmanagement.data.model.Product
 import com.example.bookshopmanagement.data.model.response.category.CategoryBestSeller
 import com.example.bookshopmanagement.databinding.FragmentHomeBinding
+import com.example.bookshopmanagement.databinding.LayoutAlertBinding
 import com.example.bookshopmanagement.ui.main.user.UserViewModel
 import com.example.bookshopmanagement.ui.signin.SignInFragment
 import com.example.bookshopmanagement.utils.LoadingProgressBar
@@ -51,6 +55,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var viewModelUser: UserViewModel
     private var binding: FragmentHomeBinding? = null
+    private var bindingAlert: LayoutAlertBinding? = null
+    private var dialog: Dialog? = null
     private var formatDate = FormatDate()
     private var formatMoney = FormatMoney()
     private var currentDate = ""
@@ -60,7 +66,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        viewModelUser=ViewModelProvider(this)[UserViewModel::class.java]
+        viewModelUser = ViewModelProvider(this)[UserViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -68,6 +74,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        bindingAlert = LayoutAlertBinding.inflate(LayoutInflater.from(context))
+        val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme)
+            .setView(bindingAlert?.root)
+        dialog = builder.create()
+        dialog?.setCancelable(false)
         return binding?.root
     }
 
@@ -76,6 +87,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+
         currentDate = formatDate.formatDate(LocalDateTime.now().toString())
         currentMonth = currentDate.split("/")[1].toInt()
         currentYear = currentDate.split("/")[2].toInt()
@@ -286,30 +298,66 @@ class HomeFragment : Fragment() {
             val inflater = popupMenu.menuInflater
             inflater.inflate(R.menu.menu_account, popupMenu.menu)
 
-            val title = popupMenu.menu[0].title.toString()
-            val spannable = SpannableString(title)
-            spannable.setSpan(
-                LeadingMarginSpan.Standard(dpToPx(view, 60), 0),
-                0,
-                spannable.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            spannable.setSpan(
-                ForegroundColorSpan(
-                    resources.getColor(R.color.black)
-                ), 0, spannable.length, 0
-            )
-            popupMenu.menu[0].title = spannable
+//            val title = popupMenu.menu[0].title.toString()
+//            val spannable = SpannableString(title)
+//            spannable.setSpan(
+//                LeadingMarginSpan.Standard(dpToPx(view, 60), 0),
+//                0,
+//                spannable.length,
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//            spannable.setSpan(
+//                ForegroundColorSpan(
+//                    resources.getColor(R.color.black)
+//                ), 0, spannable.length, 0
+//            )
+//            popupMenu.menu[0].title = spannable
+            for (i in 0 until popupMenu.menu.size()) {
+                val menuItem = popupMenu.menu.getItem(i)
+                val title = menuItem.title.toString()
+                val spannable = SpannableString(title)
+                spannable.setSpan(
+                    LeadingMarginSpan.Standard(
+                        dpToPx(view, 50),
+                        dpToPx(view, 10)
+                    ), //90:left, 0:right
+                    0,
+                    spannable.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                spannable.setSpan(
+                    ForegroundColorSpan(
+                        resources.getColor(R.color.black)
+                    ), 0, spannable.length, 0
+                )
+                menuItem.title = spannable
+            }
 
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.item_logout -> {
-                        parentFragmentManager.beginTransaction()
-                            .replace(R.id.container, SignInFragment()).commit()
-                        MySharedPreferences.clearPreferences()
+                        bindingAlert?.textDescription?.text =
+                            resources.getString(R.string.sign_out_message)
+                        bindingAlert?.textConfirm?.setOnClickListener {
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.container, SignInFragment()).commit()
+                            MySharedPreferences.clearPreferences()
+                            dialog?.dismiss()
+                        }
+                        bindingAlert?.textCancel?.setOnClickListener {
+                            dialog?.dismiss()
+                        }
+                        dialog?.show()
+
                         return@setOnMenuItemClickListener true
                     }
-                    else -> false
+                    else -> {
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.container, ChangePassFragment())
+                            .addToBackStack("HomeFragment")
+                            .commit()
+                        return@setOnMenuItemClickListener true
+                    }
                 }
             }
 
@@ -330,7 +378,7 @@ class HomeFragment : Fragment() {
                 val title = menuItem.title.toString()
                 val spannable = SpannableString(title)
                 spannable.setSpan(
-                    LeadingMarginSpan.Standard(dpToPx(view, 60), 0), //90:left, 0:right
+                    LeadingMarginSpan.Standard(dpToPx(view, 60), 0),
                     0,
                     spannable.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.bookshopmanagement.databinding.FragmentTabLayoutBinding
 import com.example.bookshopmanagement.ui.adapter.ViewPager2Adapter
-import com.example.bookshopmanagement.ui.main.order.deliverdorder.DeliveredOrderFragment
+import com.example.bookshopmanagement.ui.main.order.deliveredorder.DeliveredOrderFragment
 import com.example.bookshopmanagement.ui.main.order.prepareorder.OrderPrepareFragment
 import com.example.bookshopmanagement.ui.main.order.shippingorder.ShippingOrderFragment
 import com.google.android.material.tabs.TabLayoutMediator

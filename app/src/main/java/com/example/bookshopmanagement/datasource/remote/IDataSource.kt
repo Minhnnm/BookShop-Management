@@ -19,6 +19,11 @@ interface IDataSource {
     suspend fun login(email: String, password: String): Response<AuthResponse>
     suspend fun getAllCustomer(): Response<List<User>>
 
+    suspend fun changePassword(
+        email: String, old_password: String,
+        new_password: String,
+    ): Response<User>?
+    suspend fun getUser(): Response<User>?
     suspend fun updateUserStatus(idUser: Int, status: String): Response<Message>
     suspend fun getProducts(limit: Int, page: Int, description: Int): Response<ProductResponse>
     suspend fun getSearchProducts(

@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
     private var _customers = MutableLiveData<List<User>>()
     val customers: LiveData<List<User>> get() = _customers
+    private val _emailAdmin = MutableLiveData<String>()
+    val emailAdmin: LiveData<String> get() = _emailAdmin
     private var _message = MutableLiveData<Message>()
     val message: LiveData<Message> get() = _message
     private val userRepo: UserRepository = UserRepositoryImp(RemoteDataSource())
@@ -31,7 +33,16 @@ class UserViewModel : ViewModel() {
             }
         }
     }
-
+    fun getUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = userRepo.getUser()
+            if (response?.isSuccessful == true) {
+                _emailAdmin.postValue(response.body()?.email)
+            } else {
+                Log.d("getEmailAdmin", "NULLLL")
+            }
+        }
+    }
     fun updateUserStatus(idUser: Int, status: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = userRepo.updateUserStatus(idUser, status)

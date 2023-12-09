@@ -21,8 +21,19 @@ class RemoteDataSource() : IDataSource {
         return RetrofitClient.apiService.login(email, password)
     }
 
+    override suspend fun getUser(): Response<User>? {
+        return RetrofitClient.apiService.getUser()
+    }
     override suspend fun getAllCustomer(): Response<List<User>> {
         return RetrofitClient.apiService.getAllCustomer()
+    }
+
+    override suspend fun changePassword(
+        email: String,
+        old_password: String,
+        new_password: String
+    ): Response<User> {
+        return RetrofitClient.apiService.changePassword(email, old_password, new_password)
     }
 
     override suspend fun updateUserStatus(idUser: Int, status: String): Response<Message> {

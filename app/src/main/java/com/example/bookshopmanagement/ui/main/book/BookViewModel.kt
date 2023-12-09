@@ -22,7 +22,7 @@ class BookViewModel : ViewModel() {
     private val bookRepo: BookRepository = BookRepositoryImp(RemoteDataSource())
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> get() = _message
-    private var job: Job? = null
+     var job: Job? = null
 
     fun getProducts(limit: Int, page: Int, description: Int) {
         job?.cancel()

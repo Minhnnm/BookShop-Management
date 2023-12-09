@@ -17,7 +17,15 @@ data class AuthResponse(
         return user.email.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() }
     }
 
-    fun isPasswordGreaterThan4(): Boolean {
-        return user.password.length >= 5
+    fun isPasswordGreaterThan5(password: String): Boolean {
+        return password.length >= 5 && password.matches("(?=.*\\d)(?=.*[a-zA-Z]).*".toRegex())
+    }
+    fun isChangePassEmpty(): Boolean {
+        return TextUtils.isEmpty(user.password) || TextUtils.isEmpty(user.passwordAgain) || TextUtils.isEmpty(
+            user.newPassword
+        )
+    }
+    fun isPasswordMatch(password: String): Boolean {
+        return password == user.passwordAgain
     }
 }

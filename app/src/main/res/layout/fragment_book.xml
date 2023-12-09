@@ -50,4 +50,14 @@
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+    <include
+        android:id="@+id/loadingLayout"
+        layout="@layout/layout_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/search_product"
+        app:layout_constraintStart_toStartOf="@id/search_product"
+        app:layout_constraintTop_toBottomOf="@id/search_product" />
 </androidx.constraintlayout.widget.ConstraintLayout>

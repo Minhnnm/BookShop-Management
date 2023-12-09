@@ -27,6 +27,17 @@ interface ApiInterface {
     @GET("/customers/all")
     suspend fun getAllCustomer(): Response<List<User>>
 
+    @GET("customers")
+    suspend fun getUser(): Response<User>
+
+    @FormUrlEncoded
+    @POST("customers/changePass")
+    suspend fun changePassword(
+        @Field("email") email: String,
+        @Field("old_password") old_password: String,
+        @Field("new_password") new_password: String,
+    ): Response<User>
+
     @FormUrlEncoded
     @PUT("/customers/update/status")
     suspend fun updateUserStatus(
